@@ -1,5 +1,8 @@
 # penalty
 
+Jeanson Eloan
+Chahra Sofiane
+
 To install dependencies:
 
 ```bash
