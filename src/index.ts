@@ -4,8 +4,8 @@ import { ScoreFunctor, type Team, type Turn } from "./functions/model"; // impor
 const game = ( score:Turn[], team_A: Team, team_B: Team, total: ScoreFunctor, index: number = 1 ): Turn[] | null => {
     //const [currentTeam,otherTeam] = (index:number) => index % 2 !== 0 ? [team_A, team_B] : [team_B,team_A]; // alternates between 2 teams
     
-    const currentTeam = index % 2 === 0 ? team_A : team_B;
-    const otherTeam = index % 2 !== 0 ? team_A : team_B;
+    const currentTeam = index % 2 !== 0 ? team_A : team_B;
+    const otherTeam = index % 2 === 0 ? team_A : team_B;
 
     const goal = goalOrNotGoal();
 
@@ -26,9 +26,9 @@ const game = ( score:Turn[], team_A: Team, team_B: Team, total: ScoreFunctor, in
          updatedTotal = total.updateScores({...otherTeam,score:otherTeam.score}, {...currentTeam,score:currentTeam.score+goal}, turn)
     }
 
+    display(team_A, team_B, index, goal)
     const  winner = finished({ ...team_A, score: total.score_A },{ ...team_B, score: total.score_B }, index); // check if game is finished (winner)
 
-    display(team_A, team_B, index, goal)
     if (winner !== null) { // game finished 
         console.log(`Victoire : Équipe ${winner.team} !`);
         return updatedScore;

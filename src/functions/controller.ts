@@ -5,6 +5,7 @@ type VoidToNumberFn = ()=>number
 const goalOrNotGoal:VoidToNumberFn = () => Math.random() <= 0.76 ? 1 : 0; // probablility of goal
 
 const finished = (team_A: Team, team_B: Team, round: number): Team | null => { // verify if team is winner
+    console.log(round)
   if (round < 10) {
     if (team_A.score > (team_B.score + (10 - round))) { // if impossible to win team B, team A win
         return team_A;
@@ -33,9 +34,11 @@ const display = (team_A: Team, team_B: Team, round: number, goalOrNotGoal: numbe
     let team_B_goal: string = "0";
     if (round % 2 === 0) {
         round_display = round / 2
+        if(goalOrNotGoal == 1)
             team_B_goal = "+"+goalOrNotGoal;
     } else  {
         round_display = round / 2  + 0.5
+        if(goalOrNotGoal == 1)
             team_A_goal = "+"+goalOrNotGoal;
     }
 
