@@ -1,4 +1,4 @@
-import { goalOrNotGoal, finished, oneRoundMore } from "./functions/controller"; // import controlleur
+import { goalOrNotGoal, finished, oneRoundMore, display } from "./functions/controller"; // import controlleur
 import { ScoreFunctor, type Team } from "./functions/model"; // import model
 
 const team_A: Team = { type: "Team_A", score: 0 }; // team A
@@ -11,7 +11,7 @@ const game = ( list: number[], team_A: Team, team_B: Team, total: ScoreFunctor, 
     if (winner !== null) // game finished 
         return winner; 
 
-    const currentTeam = index % 2 === 0 ? team_B : team_A; // alternates between 2 teams
+    const currentTeam = index % 2 === 0 ? team_A : team_B; // alternates between 2 teams
     const goal = goalOrNotGoal();
 
     if (goal) { // if goal, score + 1
@@ -24,6 +24,8 @@ const game = ( list: number[], team_A: Team, team_B: Team, total: ScoreFunctor, 
         return game(oneRoundMore(list), team_A, team_B, updatedTotal, index + 1); // game continue with extension
     }
 
+    display(team_A, team_B, index, goal)
+
     return game(list, team_A, team_B, updatedTotal, index + 1); // game continue
 };
 
@@ -31,4 +33,4 @@ const game = ( list: number[], team_A: Team, team_B: Team, total: ScoreFunctor, 
 const total = new ScoreFunctor(team_A.score, team_B.score); // initialize score
 const result = game(liste, team_A, team_B, total); // begin of game
 
-console.log("Winner:", result);
+console.log("Victoire : Équipe ", result?.type,".");
