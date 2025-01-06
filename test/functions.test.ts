@@ -1,5 +1,5 @@
 import { expect, spyOn , test } from "bun:test";
-import { goalOrNotGoal, finished, oneRoundMore, display } from "../src/functions/controller";
+import { goalOrNotGoal, finished, oneMoreTime, display } from "../src/functions/controller";
 import type { Team } from "../src/functions/model";
 
 test("goalOrNotGoal returns true or false", () => {
@@ -13,9 +13,9 @@ test("finished returns the winning team", () => {
     expect(finished(team_A, team_B, round)?.type).toBe("Team_A");
 });
 
-test("oneRoundMore returns list with one more element", () => {
+test("oneMoreTime returns list with one more element", () => {
     const list: number[] = [1, 2, 3, 4, 5];
-    expect(oneRoundMore(list)).toHaveLength(6);
+    expect(oneMoreTime(list)).toHaveLength(6);
 });
 
 test("display console.log result in sentence", () => {

@@ -1,5 +1,8 @@
+export type Turn =  { team: "Team_A" | "Team_B", score: number }
+
+
 export type Team = {
-    type: "Team_A" | "Team_B";
+    team: "Team_A" | "Team_B";
     score: number;
 };
 
@@ -8,19 +11,19 @@ type BinaryOperation = (x: number) => number;
 export class ScoreFunctor {
     public readonly score_A: number;
     public readonly score_B: number;
-    public readonly history: { team: Team; goal: boolean }[];
+    public readonly history: Turn[];
 
-    constructor(score_A: number, score_B: number, history: { team: Team; goal: boolean }[] = []) {
+    constructor(score_A: number, score_B: number, history: Turn[] = []) {
         this.score_A = score_A;
         this.score_B = score_B;
         this.history = history;
     }
 
-    updateScores(teamA: Team, teamB: Team, action: { team: Team; goal: boolean }): ScoreFunctor {
+    updateScores(team1: Team, team2: Team, turn: Turn): ScoreFunctor {
         return new ScoreFunctor(
-            teamA.score,
-            teamB.score,
-            [...this.history, action]
+            team1.team === "Team_A" ? team1.score : this.score_A,
+            team2.team === "Team_B" ? team2.score : this.score_B,
+            [...this.history, turn]
         );
     }
 

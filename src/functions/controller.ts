@@ -1,6 +1,8 @@
 import type { Team } from "./model";
 
-const goalOrNotGoal = () => Math.random() <= 0.76; // probablility of goal
+type VoidToNumberFn = ()=>number
+
+const goalOrNotGoal:VoidToNumberFn = () => Math.random() <= 0.76 ? 1 : 0; // probablility of goal
 
 const finished = (team_A: Team, team_B: Team, round: number): Team | null => { // verify if team is winner
   if (round < 10) {
@@ -23,25 +25,21 @@ const finished = (team_A: Team, team_B: Team, round: number): Team | null => { /
 };
 
 
-const oneRoundMore = (list: number[]): number[] => [...list, list.length + 1]; // add one round
+const oneMoreTime = (list: number[]): number[] => [...list, list.length + 1]; // add one round
 
-const display = (team_A: Team, team_B: Team, round: number, goalOrNotGoal: boolean) => { // à corriger 
+const display = (team_A: Team, team_B: Team, round: number, goalOrNotGoal: number) => { // à corriger 
     let round_display: number = 0;
     let team_A_goal: string = "0";
     let team_B_goal: string = "0";
     if (round % 2 === 0) {
         round_display = round / 2
-        if (goalOrNotGoal === true) {
-            team_B_goal = "+1";
-        }
+            team_B_goal = "+"+goalOrNotGoal;
     } else  {
         round_display = round / 2  + 0.5
-        if (goalOrNotGoal === true) {
-            team_A_goal = "+1";
-        }
+            team_A_goal = "+"+goalOrNotGoal;
     }
 
-    console.log("Tir ", round_display," : Score : ", team_A.score,"/", team_B.score," (Équipe A: ", team_A_goal," | Équipe B: ", team_B_goal,")");
+    console.log("Tir ", round_display," : Score : ", team_A.score,"/", team_B.score," (Équipe A: ", team_A_goal," | Équipe B: ", team_B_goal,")"); 
 };
 
-export { goalOrNotGoal, finished, oneRoundMore, display };
+export { goalOrNotGoal, finished, oneMoreTime, display };
